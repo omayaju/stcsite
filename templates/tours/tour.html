@@ -1,0 +1,274 @@
+{% extends 'stcsite/base.html' %}
+{% block title %}
+	{{ tour.name }}
+{% endblock %}
+
+{% block backg %}
+      
+      #main-bg {
+        background: url("{{ tour.main_img.url }}") no-repeat center;
+        background-size: cover;
+        height: 400px;
+      }
+
+{% endblock %}
+
+{% block page-title %}
+	{{ tour.name }}
+{% endblock %}
+
+{% block content %}
+  <style>
+    .panel-default > .panel-heading {
+      background-color: #18191e;
+      color: #fff;
+    }
+    .m-content h5 {
+      text-transform: none;
+    }
+    .container-acc {
+      width: 90%;
+    }
+    .review-header {
+      background-color: #4f2c2c;
+      width: 60%;
+      height: 36px;
+      color: #fff;
+      padding-top: 10px;
+      font-size: 15px;
+      border-radius: 3px;
+      font-family: "FuturaBookC";
+    }
+    .review-header-main {
+      width: 60%;
+      color: #000;
+      font-family: "FuturaBookC";
+    }
+    .review-content {
+      border: dashed 2px #9394a7;
+      padding: 20px;
+      font-size: 15px;
+      width: 60%;
+      word-wrap: break-word;
+      font-family: "FuturaBookC";
+    }
+    .review-app {
+      width: 60%;
+      font-family: "FuturaBookC";
+    }
+    .review-app-header {
+      width: 60%;
+      height: 36px;
+      padding-top: 10px;
+      font-size: 15px;
+      font-family: "FuturaBookC";
+    }
+    .review-header-pub {
+      width: 60%;
+      height: 30px;
+      padding-top: 10px;
+      font-size: 12px;
+      font-family: "FuturaBookC";
+    }
+    .page-info {
+      font-size: 12px;
+      font-family: "FuturaBookC";
+    }
+    .info-header {
+      background-color: #9394a7;
+      height: 36px;
+      color: #fff;
+      padding: 10px;
+      font-size: 15px;
+      margin-bottom: 3px;
+      font-family: "FuturaBookC";
+    }
+    .info {
+      padding: 10px;
+      font-size: 15px;
+      margin-bottom: 3px;
+      font-family: "FuturaBookC";
+    }
+  </style>
+
+  <div class="container m-content quote">
+    <h5>"{{ quote.text }}"</h5>
+    <br>
+    <h3>Тур "{{ tour.name }}"</h5>
+    <br>
+    <p>{{ tour.description }}</p>
+  </div>
+
+  <div class="container-acc center-block">
+       <div id="accordion" class="panel-group">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Общая информация</a>
+              </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse1 in">
+              <div class="panel-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="container-fluid info-header">Место поездки:</div><div class="container info">{{ tour.destination }}</div>
+
+                    <div class="container-fluid info-header">Время поездки:</div><div class="container info">{{ tour.start_date }} - {{tour.finish_date }}</div>
+
+                    <div class="container-fluid info-header">Стоимость</div><div class="container info">{{ tour.cost }}</div>
+
+                    <div class="container-fluid info-header">Скидки</div><div class="container info">{{ tour.sell }}%</div>
+                    <div class="container-fluid info-header">Оставшиеся места: </div><div class="container info">{{ tour.places }}</div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Проживание</a>
+              </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+              <div class="panel-body">
+                  <div class="container-fluid">
+                  <div class="row">
+                    <div class="container-fluid info-header">Отель:</div><div class="container info">{{ tour.hotel }}</div>
+
+                    <div class="container-fluid info-header">Адрес отеля:</div><div class="container info"></div>
+
+                    <div class="container-fluid info-header">Типы номеров и стоимость:</div><div class="container info">
+                      {% for room in rooms %}
+                        <div class="container">
+                        <p>Тип: {{ room.name }} / Стоимость: {{ room.cost }}</p>
+                        <p>Описание:</p>
+                        <p>{{ room.description }}</p>
+                        </div>
+                        <br>
+                      {% endfor %}
+                    </div>
+
+                    <div class="container-fluid info-header">Питание</div><div class="container info">{{ tour.food }}</div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Фото</a>
+              </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div class="container center-block">
+                  <div class="row">
+                    <ul class="thumbnails list-unstyled">
+                    {% for photo in photos %}
+                      <li class="col-md-4 col-sm-6">
+                        <div class="thumbnail" style="padding: 0">
+                          <div style="padding:4px">
+                            <img alt="300x200" style="width: 100%" src="{{ photo.img.url }}">
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+              <br>
+              <br>
+              <br>
+  </div>
+</div>
+
+              <div class="container review-header-main" style="width: 60%;">
+                <h3 id="message">
+                    Отзывы
+                </h3>
+              </div>
+
+              {% for review in reviews %}
+              <div class="container review-header">Отзыв пользователя {{ review.parent_user__username }}: </div> 
+              <div class="container review-header-pub">Дата публикации: {{ review.date }}</div>
+              <br>
+              <div class="container review-content">{{ review.text }}</div>
+              <br>
+              {% endfor %}
+              
+ 
+              
+            <div class="container">
+              <div class="text-center">
+
+              
+                <ul class="pagination">
+
+                  <li><a href="/tours/{{ tour.id }}/?page=1"><span>««</span></a></li>
+                  {% if reviews.has_previous %}
+                    <li><a href="/tours/{{ tour.id }}/?page={{ reviews.previous_page_number }}"><span>«</span></a></li>
+                  {% else %}
+                    <li class="disabled"><a href=""><span>«</span></a></li>
+                  {% endif %}
+                  
+                  {% if reviews.has_next %}
+                    <li><a href="/tours/{{ tour.id }}/?page={{ reviews.next_page_number }}"><span>»</span></a></li>
+                  {% else %}
+                    <li class="disabled"><a href=""><span>»</span></a></li>
+                  {% endif %}
+                  <li><a href="/tours/{{ tour.id }}/?page={{ reviews.paginator.num_pages }}"><span>»»</span></a></li>
+
+                </ul>
+                <div class="page-info">Страница <{{ reviews.number }}> из {{ reviews.paginator.num_pages }} </div>
+              </div>
+             </div>
+
+              <br>
+              <br>
+              <br>
+
+              {% if username %}
+              <div class="container review-app-header">Оставить отзыв:</div>
+              <div class="container review-app">
+                <form method='post'>
+                {% csrf_token %}
+                  <textarea class="form-control" rows="3" name="textarea" maxlength="500"></textarea>
+                  <br>
+                  <input class="form-control btn btn-warning btn-sm" type='submit' value="Отправить" />
+                  <br>
+                </form>
+              </div>
+              {% endif %}
+              <br>
+              <br>
+              <br>
+
+  
+	<div class="container">
+      {% if username %}
+    	<a href="{% url 'app' tour.id %}"><div class="btn-black center-block">Оставить заявку</div></a>
+      {% endif %}
+    </div>	
+    <br><br><br>				
+
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}
+
+{% block href-about %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block href-about-f %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block scroll %}
+{% endblock %}

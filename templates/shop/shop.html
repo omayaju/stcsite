@@ -1,0 +1,135 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}
+	Магазин
+{% endblock %}
+
+{% block page-title %}
+	Магазин товаров для путешествий
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .btn-sm {
+    background-color: #1d2330;
+    border: solid 2px #11141c;
+    margin: 10px;
+  }
+  .f {
+    font-family: "FuturaBookC";
+  }
+  .btn-primary-f {
+    background-color: #1d2330;
+    border: solid 2px #11141c;
+    margin-top: 1px;
+    width: 100%;
+    height: 98%;
+  }
+</style>
+
+<div class="container"></div>
+  <div class="row">
+    <form action="" method="GET">
+    {% csrf_token %}
+      <div class="col-md-offset-5 col-md-1">      
+          <input type="submit" class ="btn btn-primary btn-primary-f" value ="Найти">
+     </div>
+      <div class=" col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+          <input type="text" name="textarea" class="form-control" placeholder="Товар, наименование товара">
+        </div>
+      </div>
+    </form>
+  </div>
+  <br><br>
+
+<div class="container center-block f">
+    <div class="row">
+      <ul class="thumbnails list-unstyled">
+
+	{% for good in goods %}
+        <li class="col-md-3 col-sm-6">
+          <div class="thumbnail" style="padding: 0">
+            <div style="padding:4px">
+              <img alt="300x200" style="width: 100%" src="{{ good.preview.url }}">
+            </div>
+            <div class="caption" style="min-height: 180px;">
+              <h2>{{ good.name }}</h2>
+              <p>Описание: {{ good.description }}</p>
+              <p><i class="icon icon-map-marker"></i> Категория: {{ good.category }} </p>
+            </div>
+            <a href="{% url 'good' good.id %}"><div class="btn btn-primary btn-sm">Подробнее  <span>></span></div></a>
+            <div class="modal-footer" style="text-align: left">
+              <div class="row">
+                <div class="col-md-6"><b>Стоимость: </b><br/><small>{{ good.cost }}$</small></div>
+                <div class="col-md-6"><b>Наличие: </b><br/><small>{{ good.warhouse }}</small></div>
+              </div>
+            </div>
+          </div>
+        </li>
+    {% endfor %}
+
+
+      </ul>
+    </div>
+    <div class="container">
+          <div class="text-center">
+            <ul class="pagination">
+
+              <li><a href="/shop/page/1"><span>««</span></a></li>
+              {% if goods.has_previous %}
+                <li><a href="/shop/page/{{ goods.previous_page_number }}"><span>«</span></a></li>
+              {% else %}
+                <li class="disabled"><a href=""><span>«</span></a></li>
+              {% endif %}
+
+              {% for page in goods.paginator.page_range %}
+                {% if page == goods.number %}
+                  
+                  {% if goods.has_previous %}
+                    <li><a href="/shop/page/{{ goods.previous_page_number }}"><span>{{ goods.previous_page_number }}</span></a></li>
+                    <li class="active"><a href="/shop/page/{{ page }}"><span>{{ page }}</span></a></li>
+                    {% if goods.has_next %}
+                      <li><a href="/shop/page/{{ goods.next_page_number }}"><span>{{ goods.next_page_number }}</span></a></li>
+                    {% endif %}
+                  {% else %}
+                    <li class="active"><a href="/shop/page/{{ page }}"><span>{{ page }}</span></a></li>
+                    {% if goods.has_next %}
+                      <li><a href="/shop/page/{{ goods.next_page_number }}"><span>{{ goods.next_page_number }}</span></a></li>
+                      {% if page|add:"1" != goods.end_index %}
+                        <li><a href="/shop/page/{{ page|add:"2" }}"><span>{{ page|add:"2" }}</span></a></li>
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+
+                {% endif %}
+              {% endfor %}
+
+              {% if goods.has_next %}
+                <li><a href="/shop/page/{{ goods.next_page_number }}"><span>»</span></a></li>
+              {% else %}
+                <li class="disabled"><a href=""><span>»</span></a></li>
+              {% endif %}
+              <li><a href="/shop/page/{{ goods.paginator.num_pages }}"><span>»»</span></a></li>
+
+            </ul>
+          </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block href-about %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block href-about-f %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block scroll %}
+{% endblock %}

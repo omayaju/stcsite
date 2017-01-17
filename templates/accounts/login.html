@@ -1,0 +1,44 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+    <center>
+      <style>
+        .btn-black {
+          width: 200px;
+          height: 40px;
+          padding: 0px;
+        }
+      </style>
+<div style="width: 300px;">
+  {% if form.errors %}
+    <p class="error">Сожалеем, вы неправильно ввели логин или пароль</p>
+  {% endif %}
+
+  <form action='' method='post'>
+  {% csrf_token %}
+    <label for="username">Логин:</label>
+    <input class="form-control" type="text" name="username" value="" id="username">
+    <label for="password">Пароль:</label>
+    <input class="form-control" type="password" name="password" value="" id="password">
+    <p>&nbsp;</p>
+    <input class="form-control btn-black" type="submit" value="Вход" />
+    <input class="form-control" type="hidden" name="next" value="{{ next|escape }}" /><p>&nbsp;</p>
+      <p><a href="{% url 'register' %}">Нет учетной записи? Зарегистрируйтесь!</a></p>
+  </form>
+</div>
+    </center>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+{% endblock %}

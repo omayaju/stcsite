@@ -1,0 +1,37 @@
+{% extends "accounts/base.html" %}
+
+
+{% block content %}
+<center>
+<div style="width: 300px;">
+  <h1>Регистрация в системе</h1>
+
+  <form action="" method="post">
+    {% csrf_token %}
+      {{ form.as_p }}
+      <style>
+      	.btn-black {
+			width: 200px;
+			height: 40px;
+			padding: 0px;
+      	}
+      </style>
+      <input class="form-control btn-black" type="submit" value="Регистрация">
+  </form>
+  </div>
+  <center>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+{% endblock %}

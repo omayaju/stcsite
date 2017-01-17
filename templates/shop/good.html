@@ -1,0 +1,86 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}
+	Купить {{ good.name }}
+{% endblock %}
+
+{% block page-title %}
+	Магазин товаров для путешествий
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .btn-sm {
+    background-color: #1d2330;
+    border: solid 2px #11141c;
+    margin: 10px;
+  }
+  .f {
+    font-family: "FuturaBookC";
+  }
+  .btn-black {
+    width: 200px;
+    height: 40px;
+    padding: 0px;
+  }
+</style>
+
+<div class="container center-block f">
+    <div class="row">
+      <ul class="thumbnails list-unstyled">
+
+        <li class="col-md-4 col-sm-4">
+          <div class="thumbnail" style="padding: 0">
+            <div style="padding:4px">
+              <img alt="300x200" style="width: 100%" src="{{ good.preview.url }}">
+            </div>
+            <div class="caption" style="min-height: 180px;">
+          </div>
+        </li>
+
+        <li class="col-md-8 col-sm-8">
+          <div class="thumbnail" style="padding: 15px">
+              <h2>{{ good.name }}</h2>
+              <p>Описание: {{ good.description }}</p>
+              <p><i class="icon icon-map-marker"></i> Категория: {{ good.category }} </p>
+            </div>
+            
+            <div class="modal-footer" style="text-align: left">
+              <div class="row">
+                <div class="col-md-6"><b>Стоимость: </b><br/><small>{{ good.cost }}$</small></div>
+                <div class="col-md-6"><b>Наличие: </b><br/><small>{{ good.warhouse }}</small></div>
+
+                <br><br><br>
+                <br>
+                <br>
+                {% if username %}
+                <form action="" method="POST">
+                  {% csrf_token %}
+                      {% if username %}
+                      <a href="{% url 'goodapp' good.id %}"><div class="btn-black">Заказать</div></a>
+                      {% endif %}
+                </form>
+                {% else %}
+                <p class="f">Для того чтобы заказать товар, необходимо быть <a href="/login"><авторизованным></a></p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block href-about %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block href-about-f %}
+  {% url 'main' %}#about
+{% endblock %}
+
+{% block scroll %}
+{% endblock %}

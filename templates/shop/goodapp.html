@@ -1,0 +1,53 @@
+{% extends "accounts/base.html" %}
+
+
+{% block content %}
+<center>
+<div class = "container">
+  <h1>Формирование заказа</h1>
+  <h3 style="color: #aa2222">{{ message }}</h3>
+
+
+      <style>
+      	.btn-black {
+			width: 200px;
+			height: 40px;
+			padding: 0px;
+      	}
+      	.space {
+      		margin-bottom: 30px;
+      	}
+      	.container-fields {
+      		width: 60%;
+      	}
+      </style>
+
+	<h5>Заполните контактную информацию:</h5>
+	<br><br>
+	<div class="container">
+		<div class="container-fields">
+		  <form action="" method="post">
+		    {% csrf_token %}
+				{{ form }}
+		      <input class="form-control btn-black" type="submit" value="Отправить">
+		  </form>
+		</div>
+	 </div>
+	</div>
+	  <center>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	  <br>
+	
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'stcsite/base.html' %}
+{% block title %}
+	SM Турагенство. Главная страница
+{% endblock %}
+
+{% block backg %}
+      
+      #main-bg {
+        background: url("{{ bgimg.img.url }}") no-repeat center top;
+        background-size: cover;
+        height: 650px;
+      }
+
+{% endblock %}
+
+{% block page-title %}
+	seamounting travel company
+{% endblock %}
+
+{% block content %}
+
+ <div class="container m-content">
+      <div><h3>Добро пожаловать на сайт турагенства "seamounting travel company"</h3></div>
+        <h5></h5>
+        <p>"Древние совершенно справедливо утверждали: для того чтобы увидеть, что же находится за горизонтом, надо плавать. И не только утверждали... Жизнь интересна еще и тем, что можно путешествовать. Via est vita. Дорога есть жизнь..."</p>
+
+    </div>
+
+    <div class="container-fluid m-content">
+      <h3 id="offers">Последние предложения:</h3>
+      <div class="container-fluid">
+		        
+			{% for tour in tours %}
+				<style>
+					#of-{{tour.id}} {
+						background: url("{{ tour.main_img.url }}") no-repeat center;
+						background-size: cover;
+					}
+					#of-container {
+						width: 100%;
+						background: rgba(0,0,0,0.6);
+					}
+          .btn-sm {
+            background-color: #1d2330;
+            border: solid 2px #11141c;
+            margin: 10px;
+          }
+          .f {
+            font-family: "FuturaBookC";
+          }
+				</style>
+
+				<div id="of-{{tour.id}}" class="container-fluid offer">
+					<br>
+					<br>
+					<div id="of-container">
+						<h5>{{tour.name}}</h5>
+						<p>{{tour.start_date}} - {{tour.finish_date}}</p>
+						<h3>{{tour.tagline}}</h3>
+					
+						<br>
+						<div class="container">
+			            	<a href="{% url 'tour' tour.id %}"><div class="btn-white center-block">Подробнее</div></a>
+			      		</div>
+			      		<br>
+			      	</div>
+				</div>
+
+			{% endfor %}
+
+	<br>
+	<div class="container">
+	  <a href="{% url 'tours' %}"><div class="btn-black center-block">Посмотреть все предложения</div></a>
+	</div>
+	<br><br>
+      </div>
+    </div>
+
+     <div id="new" class="container-fluid m-content">
+      <h3>Новинки в интернет-магазине:</h3>
+      <div class="container-fluid new-shop">
+        <div class="row">
+          <ul class="thumbnails list-unstyled">
+
+      {% for good in goods %}
+            <li class="col-md-4 col-sm-4">
+              <div class="thumbnail" style="padding: 0">
+                <div style="padding:4px">
+                  <img alt="300x200" style="width: 100%" src="{{ good.preview.url }}">
+                </div>
+                <div class="caption center-block" style="min-height: 180px;">
+                  <h2>{{ good.name }}</h2>
+                  <p>Описание: {{ good.description }}</p>
+                  <p><i class="icon icon-map-marker"></i> Категория: {{ good.category }} </p>
+                </div>
+                <a href="{% url 'good' good.id %}"><div class="btn btn-primary btn-sm">Подробнее  <span>></span></div></a>
+                <div class="modal-footer" style="text-align: left">
+                  <div class="row">
+                    <div class="col-md-6"><b>Стоимость: </b><br/><small>{{ good.cost }}$</small></div>
+                    <div class="col-md-6"><b>Наличие: </b><br/><small>{{ good.warhouse }}</small></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+        {% endfor %}
+
+
+          </ul>
+        </div>       
+      </div>
+    </div>
+      
+    <br><br><br><br><br><br><br><br>
+    <div id="about" class="container-fluid m-content">
+      <h3>О компании:</h3>
+        <p>
+        Seacounting travel company - молодая интернациональная компании в области туризма и заграничных путешествий.
+        </p>
+        <p>Мы представляем вам десятки стран с лучшими отелями и пляжами в мире, а также десятки вариантов экстремального туризма.</p>
+        <p>Посмотрите и оцените наши предложения. Зарегистрируйтесь для отправления заявки и наши менеджеры свяжутся с Вами.</p>
+    </div>
+    <br><br><br><br><br>
+
+{% endblock %}
+
+{% block button %}
+
+ 	<div class="container">
+    	<a href="#offers"><div class="btn-white center-block">Перейти к предложениям</div></a>
+    </div>
+    <div id="arrow" class="arrow-img"></div>
+
+{% endblock %}
+
+
+{% block href-about %}
+#about
+{% endblock %}
+
+{% block href-about-f %}
+#about
+{% endblock %}
+
+{% block scroll %}
+    <script type = "text/javascript">
+      function scroll() {
+        $('a').click(function(){  
+          //Animate
+          $('html, body').stop().animate({
+              scrollTop: $( $(this).attr('href') ).offset().top - 160
+          }, 800);
+          return false;
+        });
+        $('.scrollTop a').scrollTop();
+      }
+      scroll();
+    </script>
+{% endblock %}

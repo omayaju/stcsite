@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{%static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{%static "css/mainstyle.css" %}" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static "css/img/ico.png" %}" type="image/png">
+
+    <style>
+      @font-face {
+        font-family: "FuturaBookC";
+        src: url("{% static "fonts/FuturaBookC.ttf" %}");
+      }
+      @font-face {
+        font-family: "Impact";
+        src: url("{% static "fonts/impact.ttf" %}");
+      }
+      {% block backg %} {% endblock %}
+    </style>
+  </head>
+  <body>
+    <div id="page-preloader"><span class="spinner"></span></div>
+
+    <div class="container-fluid" id="main-bg">
+
+
+      <div class="container" id="header">
+        <div><a href="/"><img src="{% static "css/img/logo.png" %}" alt="logo"></a></div>
+      </div>
+
+
+      
+
+    </div>
+
+    <br><br><br><br>
+    
+   {% block content %}{% endblock %}
+
+    <div class="container-fluid footer">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6">
+          <br>
+          <br>
+          <p class= f-menu><a href="{% url 'main' %}">главная</a></p>
+          <p class= f-menu><a href="{% url 'tours' %}">туры</a></p>
+          <p class= f-menu><a href="{% block href-about-f %} {% endblock %}">о компании</a></p>
+          <p class= f-menu><a href="{% url 'shop' %}">магазин</a></p>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-6 f-text">
+          <br>
+          <br>
+          <p>контакты</p>
+          <p>email : sea@mounting.com</p>
+          <p><span class="glyphicon glyphicon-earphone"></span>8-800-555-3-555</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <p><span class="glyphicon glyphicon-copyright-mark"></span>Поляшов, 14-ИСТ</p>
+          <p></p>
+        <div>
+      </div>
+    </div>
+    
+    <script src="{% static "js/jquery-2.2.4.min.js" %}"></script>
+    <script src="{% static "js/jquery.transit.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type = "text/javascript">
+      function scroll() {
+        $('a').click(function(){  
+          //Animate
+          $('html, body').stop().animate({
+              scrollTop: $( $(this).attr('href') ).offset().top - 160
+          }, 800);
+          return false;
+        });
+        $('.scrollTop a').scrollTop();
+      }
+      scroll();
+    </script>
+    <script>
+      $(window).on('load', function () {
+          var $preloader = $('#page-preloader'),
+              $spinner   = $preloader.find('.spinner');
+          $spinner.fadeOut();
+          $preloader.delay(500).fadeOut('slow');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{%static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{%static "css/mainstyle.css" %}" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static "css/img/ico.png" %}" type="image/png">
+
+    <style>
+      @font-face {
+        font-family: "FuturaBookC";
+        src: url("{% static "fonts/FuturaBookC.ttf" %}");
+      }
+      @font-face {
+        font-family: "Impact";
+        src: url("{% static "fonts/impact.ttf" %}");
+      }
+      #main-bg {
+        background: url("{% static "css/img/shop-bg.jpg" %}") no-repeat center;
+        background-size: cover;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-preloader"><span class="spinner"></span></div>
+
+    <div class="container-fluid" id="main-bg">
+
+      <div class="container-fluid">
+        <div  id="menu" class="navbar navbar-default default">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#r-m">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="r-m">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'main' %}">Главная</a></li>
+              <li><a href="{% url 'tours' %}">Туры</a></li>
+              <li><a href="#foot">Контакты</a></li>
+              <li><a href="{% block href-about %} {% endblock %}">О компании</a></li>
+              <li><a href="{% url 'shop' %}">Магазин</a></li>
+              <li role="separator" class="divider"></li>      
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                {% if username %}
+                  <li><a href="{% url 'logout' %}">Выйти: {{username}}</a></li>
+                {% else %}
+                  <li><a href="{% url 'login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" id="header">
+        <div><a href="/"><img src="{% static "css/img/logo.png" %}" alt="logo"></a></div>
+      </div>
+
+      <div class="container h-content col-sm">
+        <h1>{% block page-title %} {% endblock %}</h1>
+      </div>
+
+      <br><br><br><br><br><br><br>
+
+      {% block button %}{% endblock %}
+
+      
+
+    </div>
+  </div>
+  
+    <br><br><br><br>
+    
+   {% block content %}{% endblock %}
+   
+   <br>
+   <br>
+   <br>
+
+ 
+    <div id="foot" class="container-fluid footer">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6">
+          <br>
+          <br>
+          <p class= f-menu><a href="{% url 'main' %}">главная</a></p>
+          <p class= f-menu><a href="{% url 'tours' %}">туры</a></p>
+          <p class= f-menu><a href="">галлерея</a></p>
+          <p class= f-menu><a href="{% block href-about-f %} {% endblock %}">о компании</a></p>
+          <p class= f-menu><a href="{% url 'shop' %}">магазин</a></p>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-6 f-text">
+          <br>
+          <br>
+          <p>контакты</p>
+          <p>email : sea@mounting.com</p>
+          <p><span class="glyphicon glyphicon-earphone"></span>8-800-555-3-555</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <p><span class="glyphicon glyphicon-copyright-mark"></span>Поляшов, 14-ИСТ</p>
+          <p></p>
+        <div>
+      </div>
+    </div>
+    
+    <script src="{% static "js/jquery-2.2.4.min.js" %}"></script>
+    <script src="{% static "js/jquery.transit.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    {% block scroll %}
+    {% endblock %}
+    <script>
+      $(window).on('load', function () {
+          var $preloader = $('#page-preloader'),
+              $spinner   = $preloader.find('.spinner');
+          $spinner.fadeOut();
+          $preloader.delay(500).fadeOut('slow');
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+
+        var $menu = $("#menu");
+        var $arr = $("#arrow");
+
+        $(window).scroll(function(){
+            if ( $(this).scrollTop() > 90 && $menu.hasClass("default") ) {
+                $menu.removeClass("default").addClass("fixed");
+                $arr.transition({opacity: 0}, 1000, "ease");
+            } 
+            else if($(this).scrollTop() <= 90 && $menu.hasClass("fixed")) {
+                $menu.removeClass("fixed").addClass("default");
+                $arr.transition({opacity: 1}, 1000, "ease");
+            }
+        });
+    });
+    </script>
+  </body>
+</html>
